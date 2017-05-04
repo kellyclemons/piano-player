@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>JS Piano Player</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="keys">
+    <div data-key="65" class="key">
+      <kbd>A</kbd>
+      <span class="sound">clap</span>
+    </div>
+    <div data-key="87" class="key">
+      <kbd>W</kbd>
+      <span class="sound">clap</span>
+    </div>
+    <div data-key="83" class="key">
+      <kbd>S</kbd>
+      <span class="sound">hihat</span>
+    </div>
+    <div data-key="69" class="key">
+      <kbd>E</kbd>
+      <span class="sound">clap</span>
+    </div>
+    <div data-key="68" class="key">
+      <kbd>D</kbd>
+      <span class="sound">kick</span>
+    </div>
+    <div data-key="70" class="key">
+      <kbd>F</kbd>
+      <span class="sound">openhat</span>
+    </div>
+    <div data-key="84" class="key">
+      <kbd>T</kbd>
+      <span class="sound">clap</span>
+    </div>
+    <div data-key="71" class="key">
+      <kbd>G</kbd>
+      <span class="sound">boom</span>
+    </div>
+    <div data-key="89" class="key">
+      <kbd>Y</kbd>
+      <span class="sound">clap</span>
+    </div>
+    <div data-key="72" class="key">
+      <kbd>H</kbd>
+      <span class="sound">ride</span>
+    </div>
+    <div data-key="85" class="key">
+      <kbd>U</kbd>
+      <span class="sound">clap</span>
+    </div>
+    <div data-key="74" class="key">
+      <kbd>J</kbd>
+      <span class="sound">snare</span>
+    </div>
+    <div data-key="75" class="key">
+      <kbd>K</kbd>
+      <span class="sound">tom</span>
+    </div>
+    <div data-key="79" class="key">
+      <kbd>O</kbd>
+      <span class="sound">clap</span>
+    </div>
+    <div data-key="76" class="key">
+      <kbd>L</kbd>
+      <span class="sound">tink</span>
+    </div>
+    <div data-key="80" class="key">
+      <kbd>P</kbd>
+      <span class="sound">clap</span>
+    </div>
+    <div data-key="186" class="key">
+      <kbd>;</kbd>
+      <span class="sound">tink</span>
+    </div>
+    <div data-key="222" class="key">
+      <kbd>'</kbd>
+      <span class="sound">tink</span>
+    </div>
+  </div>
+
+  <audio data-key="65" src="media/261-C.mp3"></audio>
+  <audio data-key="87" src="media/277-C-sharp.mp3"></audio>
+  <audio data-key="83" src="media/293-D.mp3"></audio>
+  <audio data-key="69" src="media/311-D-sharp.mp3"></audio>
+  <audio data-key="68" src="media/329-E.mp3"></audio>
+  <audio data-key="70" src="media/349-F.mp3"></audio>
+  <audio data-key="84" src="media/369F-sharp.mp3"></audio>
+  <audio data-key="71" src="media/391-G.mp3"></audio>
+  <audio data-key="89" src="media/415-G-sharp.mp3"></audio>
+  <audio data-key="72" src="media/440-A.mp3"></audio>
+  <audio data-key="85" src="media/466-A-sharp.mp3"></audio>
+  <audio data-key="74" src="media/495-B.mp3"></audio>
+  <audio data-key="75" src="media/523-C.mp3"></audio>
+  <audio data-key="79" src="media/545-C-sharp.mp3"></audio>
+  <audio data-key="76" src="media/587-D.mp3"></audio>
+  <audio data-key="80" src="media/622-D-sharp.mp3"></audio>
+  <audio data-key="186" src="media/659-E.mp3"></audio>
+  <audio data-key="222" src="media/698-F.mp3"></audio>
+
+<script>
+  function playSound(e) {
+      const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+      const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
+      if(!audio) return;
+      audio.currentTime = 0;
+      audio.play();
+      key.classList.add('playing');
+  }
+
+  function removeTransition(e) {
+    if (e.propertyName !== 'transform') return;
+    this.classList.remove('playing');
+  }
+
+  const keys = document.querySelectorAll('.key');
+  keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+  window.addEventListener('keydown', playSound);
+
+</script>
+
+</body>
+</html>
